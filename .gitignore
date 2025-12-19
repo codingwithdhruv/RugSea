@@ -1,0 +1,33 @@
+.anchor
+.DS_Store
+target
+**/*.rs.bk
+node_modules
+test-ledger
+.yarn
+# Frontend build output
+app/build
+app/dist
+app/.next
+
+# Frontend dependencies (if created inside app)
+app/node_modules
+
+# Env files (backend + frontend)
+.env
+.env.*
+!.env.example
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
+app/npm-debug.log*
+app/yarn-debug.log*
+app/pnpm-debug.log*
+
+# Editor/OS junk
+.vscode/
+.idea/
+*.log
