@@ -1,13 +1,4 @@
-pub mod constants;
-pub mod error;
-pub mod instructions;
-pub mod state;
-
 use anchor_lang::prelude::*;
-
-pub use constants::*;
-pub use instructions::*;
-pub use state::*;
 
 declare_id!("HZQUX8ZpU5rtEpDA4R47hL9KJrUFsGXgYGEHekYyeDEN");
 
@@ -15,7 +6,21 @@ declare_id!("HZQUX8ZpU5rtEpDA4R47hL9KJrUFsGXgYGEHekYyeDEN");
 pub mod rugsea {
     use super::*;
 
-    pub fn initialize(ctx: Context<Initialize>) -> Result<()> {
-        initialize::handler(ctx)
+    pub fn create_listing(ctx: Context<CreateListing>, price: u64) -> Result<()> {
+        let _ctx = ctx;
+        let _price = price;
+        Ok(())
     }
+}
+
+#[derive(Accounts)]
+pub struct CreateListing<'info> {
+    pub seller: Signer<'info>,
+}
+
+#[account]
+pub struct Listing {
+    pub seller: Pubkey,
+    pub nft_mint: Pubkey,
+    pub price: u64,
 }
