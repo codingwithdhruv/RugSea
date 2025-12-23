@@ -21,6 +21,16 @@ pub mod rugsea {
         listing.bump = ctx.bumps.listing;
         listing.is_active = true;
 
+        let cpi_accounts = anchor_spl::token::Transfer {
+            from: ctx.accounts.seller_nft_account.to_account_info(),
+            to: ctx.accounts.escrow.to_account_info(),
+            authority: ctx.accounts.seller.to_account_info(),
+        };
+
+        let cpi_program = ctx.accounts.token_program.to_account_info();
+        let cpi_ctx = CpiContext::new(cpi_program, cpi_accounts);
+        anchor_spl::token::transfer(cpi_ctx, 1)?;
+
         msg!("Listing created: {} SOL for NFT {}", price / 1_000_000_000u64, listing.nft_mint);
         Ok(())
     }
@@ -47,6 +57,7 @@ pub struct CreateListing<'info> {
     pub seller_nft_account: Account<'info, TokenAccount>,
 
     /// CHECK: Escrow token account (client creates first)
+    #[account(mut)]
     pub escrow: AccountInfo<'info>,
 
     pub token_program: Program<'info, Token>,
