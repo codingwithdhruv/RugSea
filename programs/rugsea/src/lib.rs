@@ -57,8 +57,11 @@ pub struct CreateListing<'info> {
     pub seller_nft_account: Account<'info, TokenAccount>,
 
     /// CHECK: Escrow token account (client creates first)
-    #[account(mut)]
-    pub escrow: AccountInfo<'info>,
+    #[account(
+        mut,
+        constraint = escrow.mint == nft_mint.key()
+    )]
+    pub escrow: Account<'info, TokenAccount>,
 
     pub token_program: Program<'info, Token>,
     pub system_program: Program<'info, System>,

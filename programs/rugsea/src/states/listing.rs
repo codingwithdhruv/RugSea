@@ -11,3 +11,6 @@ pub struct Listing {
     pub bump: u8,
     pub is_active: bool,
 }
+impl Listing {
+    pub const INIT_SPACE: usize = 8 + 32 * 4 + 8 + 1 + 1 + 8;
+}
